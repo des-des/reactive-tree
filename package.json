@@ -1,7 +1,7 @@
 {
   "name": "es6-boilerplate",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Boilerplate for running transpiled tests fast",
   "main": "lib/app.js",
   "dependencies": {
   },
@@ -26,7 +26,7 @@
     "_dev:test:build:test": "babel test -d .test_build/test -w",
     "_dev:test:build:source": "babel src -d .test_build/src -w"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["babel", "boilerplate", "es6", "tape", "testing", "es2015"],
+  "author": "Eoin McCarthy",
   "license": "ISC"
 }
