@@ -20,7 +20,7 @@
     "dev:test": "npm run _dev:test:build & npm run _dev:test:watch",
     "_test:cov": "babel-node ./node_modules/.bin/babel-istanbul cover tape test/**.test.js",
     "_test:cov-check": "./node_modules/.bin/babel-istanbul check-coverage",
-    "_dev:test:watch": "nodemon --watch .test_build --exec \"npm run _dev:test:run\"",
+    "_dev:test:watch": "nodemon -q -C --watch .test_build --exec \"npm run _dev:test:run\"",
     "_dev:test:run": "tape .test_build/test/**.test.js | tap-notify | tap-spec",
     "_dev:test:build": "npm run _dev:test:build:test & npm run _dev:test:build:source",
     "_dev:test:build:test": "babel test -d .test_build/test -w",
