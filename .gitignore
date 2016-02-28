@@ -7,4 +7,5 @@ node_modules
 coverage
 
 # build output
-lib
+server
+public/**.js

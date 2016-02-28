@@ -1,26 +1,29 @@
-# ES2015 boilerplate
+# RxJS + D3 + Fractals
 
-##### Run your tests *fast*
+<!-- ### drawing a binary tree
+First, we need to work out how to draw a fractal tree. The output of our tree drawing will be an array of branches, each will need a start position and an end position.
 
-### What
- * Boilerplate for testing and building es6 projects.
+As we move our mouse around
+Trying to find these positions relative to then origin leads to some nasty maths, much nicer we   -->
 
-### Why
- * Tests can be slow to run when you need to traspile your code.
- * Bored of setting up the same build scripts.
+### RxJS
+The inputs we are interested in (for now) are mouse move events and mouse clicks.
 
-### How
- * Using babel to watch and build source and tests.
- * Using nodemon to test the built code.
+Each mouse move event will generate an x and y coordinate. We will map these to the angle change of branches from their parent at each split in the tree, x will define the angle of the left branch, while y will define the angle of the right branch.
 
+We will map click events to growing the tree another iteration.
 
- 1. Put your code into `./src/`.
- 2. Put your tests in `./test/`. give your tests the extension. `.test.js`
- 3. Use the scripts below (from `package.json`).
+That is, the mouse events will reduce (actually scan, as we need the result after each click) to an object representing our trees structure, while the mouses position will map to pairs of angles defining how our branches bend in each split of the tree. Merged together, the combination of the latest output from these two streams will give us a complete representation of our binary tree.
+
+<!--
+### D3
+Once we have our desired date we need to render our tree (outputted from our RxJS event stream) we can use D3 to render our tree.
+
+We use a d3 diagonal generator to define how a links position maps to   
 
 Command | Description
 ---|---
 `dev:test` | Watch you source `./src` and your tests `./test`, and test on file change. **Fast**.
 `test` | Run tests and check for 100% coverage. **Slow**.
 `build` | Build `./src` to `./lib`
-`dev:build` | Build `./src` to `./lib` on file change.
+`dev:build` | Build `./src` to `./lib` on file change. -->
