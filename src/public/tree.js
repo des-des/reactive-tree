@@ -1,32 +1,36 @@
 const treeCreator = (() => {
-  const w = document.documentElement.clientWidth*.995;
-  const h = document.documentElement.clientHeight*.995;
+  const w = $(window).width()*.995;
+  const h = $(window).height()*.995;
+
+  const getId = ((id) => () => id++)(0);
 
   const flatten1 = (arrs) =>
     arrs.reduce((flatArr, arr) => flatArr.concat(arr), []);
 
-  const createNodes = (nodePropsTree, theta1, theta2, lastNode, i) => {
+  const createNodes = (nodePropsTree, theta1, theta2, pow, lastNode, i) => {
     const dir = nodePropsTree.dir;
     const dTheta = !dir
       ? 0
       : dir === 'left'
         ? theta1 : theta2;
-    const len = 1/Math.sqrt((i-2)*(i-2)+1);
+    const len = 1.5/Math.pow(i+1, pow);
     const theta = lastNode.theta + dTheta;
     const x1 = lastNode.x2;
     const y1 = lastNode.y2;
     const x2 = x1 + 2*nodePropsTree.r*Math.cos(theta)*len;
     const y2 = y1 + 2*nodePropsTree.r*Math.sin(theta)*len;
-    const node = {theta, x1, y1, x2, y2};
+    const id = nodePropsTree.id;
+    const node = {theta, x1, y1, x2, y2, id};
     const children = nodePropsTree.children;
     return [node].concat(children.length ?
       flatten1(children.map(nodePropsTree =>
-        createNodes(nodePropsTree, theta1, theta2, node, i+1)
+        createNodes(nodePropsTree, theta1, theta2, pow, node, i+1)
       )) : []
     ); // concating may be to slow (use immutable.js?)
   };
 
   const testNodes = {
+    id: getId(),
     theta: 0,
     r: 1,
     children: []
@@ -38,10 +42,12 @@ const treeCreator = (() => {
       tree.children.forEach(child => grow(child));
     } else {
       tree.children = [{
+        id: getId(),
         r: 1,
         dir: 'left',
         children: []
       }, {
+        id: getId(),
         dir: 'right',
         r: 1,
         children: []
@@ -73,17 +79,23 @@ const treeCreator = (() => {
     });
 
   return {
-    draw: (tree, theta1, theta2) => {
+    draw: (tree, theta1, theta2, pow, delay) => {
       const links = createNodes(
         tree,
         theta1,
         theta2,
+        pow,
         {x2:3, y2:0, theta:0},
         0
       );
 
       const selection = svg.selectAll('.branch')
-        .data(links).attr('d', diagonal);
+        .data(links, d => {
+          return d.id
+        })//.attr('d', diagonal)
+
+      selection.transition().duration(50+delay*2)
+        .ease("linear").attr('d', diagonal)
 
       selection.enter()
         .append('path')
