@@ -94,7 +94,7 @@ const treeCreator = (() => {
           return d.id
         })//.attr('d', diagonal)
 
-      selection.transition().duration(50+delay*2)
+      selection.transition().duration(40+delay*3)
         .ease("linear").attr('d', diagonal)
 
       selection.enter()

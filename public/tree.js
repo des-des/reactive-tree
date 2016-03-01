@@ -86,7 +86,7 @@ var treeCreator = function () {
         return d.id;
       }); //.attr('d', diagonal)
 
-      selection.transition().duration(50 + delay * 2).ease("linear").attr('d', diagonal);
+      selection.transition().duration(40 + delay * 3).ease("linear").attr('d', diagonal);
 
       selection.enter().append('path').attr("stroke-width", 2).attr("fill", 'none').attr('class', 'branch').attr("stroke", "black").attr('d', diagonal);
     },

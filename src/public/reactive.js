@@ -10,9 +10,9 @@ const keyStream = Rx.Observable.fromEvent($(document), 'keydown')
   .map(({keyCode}) => keyCode)
   .map(keyCode => keyMapping[keyCode] ? keyMapping[keyCode] : keyCode)
 const delayStream = Rx.Observable
-  .interval(50).timeInterval()
+  .interval(40).timeInterval()
   .map(({interval}) => interval)
-  .map(t => t - 50)
+  .map(t => t - 40)
   .map(t => t < 0 ? 0 : t);
 const mouseMoveStream = Rx.Observable.fromEvent($('html'), 'mousemove')
 const mouseClickStream = Rx.Observable.fromEvent($('html'), 'click')

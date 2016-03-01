@@ -17,11 +17,11 @@ var keyStream = Rx.Observable.fromEvent($(document), 'keydown').map(function (_r
 }).map(function (keyCode) {
   return keyMapping[keyCode] ? keyMapping[keyCode] : keyCode;
 });
-var delayStream = Rx.Observable.interval(50).timeInterval().map(function (_ref2) {
+var delayStream = Rx.Observable.interval(40).timeInterval().map(function (_ref2) {
   var interval = _ref2.interval;
   return interval;
 }).map(function (t) {
-  return t - 50;
+  return t - 40;
 }).map(function (t) {
   return t < 0 ? 0 : t;
 });
